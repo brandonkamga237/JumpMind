@@ -11,16 +11,25 @@ public class Camera {
 
     private static final float LERP = 0.12f;   // un peu plus smooth
 
+    private float maxX, maxY;
+
+    public void setBounds(int mapWidth, int mapHeight) {
+        this.maxX = Math.max(0, mapWidth - GamePanel.WIDTH);
+        this.maxY = Math.max(0, mapHeight - GamePanel.HEIGHT);
+    }
+
     public void update(float heroX, float heroY) {
         // Suivi horizontal
         float targetX = heroX - GamePanel.WIDTH / 2f;
         x += (targetX - x) * LERP;
         if (x < 0) x = 0;
+        if (x > maxX) x = maxX;
 
         // Suivi vertical (très important pour grimper)
         float targetY = heroY - GamePanel.HEIGHT / 2f;
         y += (targetY - y) * LERP;
         if (y < 0) y = 0;
+        if (y > maxY) y = maxY;
 
         // Screen shake
         if (shakeTime > 0) {

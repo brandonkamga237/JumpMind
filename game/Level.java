@@ -18,6 +18,7 @@ public class Level {
     private List<Enemy> enemies = new ArrayList<>();
     private Portal portal;
     private float heroStartX, heroStartY;
+    private int mapWidth, mapHeight;
 
     public void load(String path) {
         platforms.clear();
@@ -25,10 +26,14 @@ public class Level {
         enemies.clear();
         portal = null;
 
+        int maxCols = 0;
+        int maxRows = 0;
+
         try (BufferedReader br = new BufferedReader(new FileReader(path))) {
             String line;
             int row = 0;
             while ((line = br.readLine()) != null) {
+                if (line.length() > maxCols) maxCols = line.length();
                 for (int col = 0; col < line.length(); col++) {
                     char c = line.charAt(col);
                     int px = col * TILE_SIZE;
@@ -43,9 +48,13 @@ public class Level {
                 }
                 row++;
             }
+            maxRows = row;
         } catch (IOException e) {
             System.err.println("Erreur chargement niveau : " + path);
         }
+
+        mapWidth = maxCols * TILE_SIZE;
+        mapHeight = maxRows * TILE_SIZE;
     }
 
     public List<Platform> getPlatforms() { return platforms; }
@@ -54,4 +63,6 @@ public class Level {
     public Portal getPortal() { return portal; }
     public float getHeroStartX() { return heroStartX; }
     public float getHeroStartY() { return heroStartY; }
+    public int getMapWidth() { return mapWidth; }
+    public int getMapHeight() { return mapHeight; }
 }

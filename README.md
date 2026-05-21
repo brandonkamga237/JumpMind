@@ -1,157 +1,86 @@
 # JumpMind
 
-![Static Badge](https://img.shields.io/badge/Java-17%2B-blue)
-![Static Badge](https://img.shields.io/badge/Platform-Desktop-lightgrey)
-![Static Badge](https://img.shields.io/badge/License-MIT-green)
+![Java](https://img.shields.io/badge/Java-17%2B-blue)
+![Platform](https://img.shields.io/badge/Platform-Desktop-lightgrey)
+![License](https://img.shields.io/badge/License-MIT-green)
 
-**JumpMind** est un jeu de plateforme 2D développé en Java avec Swing. Incarnez un héros circulaire capable de courir, sauter, dasher et glisser le long des murs à travers des niveaux remplis de pièges et d'ennemis.
-
----
-
-## Table des matières
-
-- [Aperçu](#aperçu)
-- [Gameplay](#gameplay)
-- [Structure du projet](#structure-du-projet)
-- [Prérequis](#prérequis)
-- [Compilation et exécution](#compilation-et-exécution)
-- [Contrôles](#contrôles)
-- [Documentation](#documentation)
-- [Licence](#licence)
-
----
-
-## Aperçu
-
-JumpMind est un jeu de plateforme nerveux avec une physique soignée et des mécaniques modernes. Le joueur contrôle une boule lumineuse qui doit traverser 5 niveaux en évitant les pièges et les ennemis pour atteindre le portail de sortie.
-
-**Caractéristiques principales :**
-- Moteur physique personnalisé (accélération, friction, gravité)
-- Coyote time et jump buffer pour un gameplay indulgent
-- Dash directionnel avec cooldown
-- Wall slide et wall jump
-- Déformation visuelle du personnage (squash & stretch)
-- Particules, screen shake et hitstop (game feel)
-- Caméra fluide avec lerp
-- Système de niveaux basé sur des fichiers texte
-
----
+Jeu de plateforme 2D en Java/Swing. Contrôlez une boule lumineuse à travers 5 niveaux remplis de pièges et d'ennemis pour atteindre le portail de sortie.
 
 ## Gameplay
 
-Le but est d'atteindre le portail (cercle vert pulsant) à la fin de chaque niveau. Le joueur doit éviter :
-- Les **pièges** (triangles rouges) : mort instantanée au contact
-- Les **ennemis** (carrés orange) : mort instantanée au contact
-- La **chute dans le vide** : mort si le joueur tombe trop bas
+| Élément | Apparence | Effet |
+|---------|-----------|-------|
+| Portail | Cercle vert pulsant | Passage au niveau suivant |
+| Pièges | Triangles rouges | Mort instantanée |
+| Ennemis | Carrés orange | Mort instantanée |
+| Vide | Chute sous la map | Mort |
 
-Le jeu comporte 5 niveaux. Une fois tous les niveaux complétés, l'écran de victoire s'affiche.
-
----
-
-## Structure du projet
-
-```
-JumpMind/
-├── Main.java                  # Point d'entrée
-├── README.md                  # Documentation principale
-├── sources.txt                # Liste des fichiers sources
-├── docs/                      # Documentation détaillée
-│   ├── architecture.md        # Architecture globale
-│   ├── engine.md              # Moteur de jeu
-│   ├── entities.md            # Entités
-│   ├── game.md                # Logique de jeu
-│   ├── ui.md                  # Interface utilisateur
-│   ├── world.md               # Objets du monde
-│   ├── levels.md              # Système de niveaux
-│   └── api-reference.md       # Référence API
-├── engine/                    # Boucle de jeu et entrées
-│   ├── GamePanel.java
-│   ├── GameLoop.java
-│   └── InputHandler.java
-├── entities/                  # Entités du jeu
-│   ├── Entity.java
-│   ├── Hero.java
-│   ├── Enemy.java
-│   ├── Portal.java
-│   └── PlayerState.java
-├── game/                      # Logique de jeu
-│   ├── Game.java
-│   ├── Level.java
-│   ├── Camera.java
-│   └── Particle.java
-├── world/                     # Objets du monde
-│   ├── Platform.java
-│   ├── Trap.java
-│   └── PowerUp.java
-├── ui/                        # Interface utilisateur
-│   ├── Menu.java
-│   ├── HUD.java
-│   └── GameOver.java
-└── levels/                    # Fichiers de niveaux
-    ├── level1.txt
-    ├── level2.txt
-    └── level3.txt
-```
-
----
-
-## Prérequis
-
-- **Java Development Kit (JDK)** version 17 ou supérieure
-- Un terminal ou IDE (IntelliJ, Eclipse, VS Code)
-
----
-
-## Compilation et exécution
-
-### Compilation
-
-```bash
-javac Main.java engine/*.java entities/*.java game/*.java world/*.java ui/*.java
-```
-
-### Exécution
-
-```bash
-java Main
-```
-
-### Compilation et exécution en une commande
-
-```bash
-javac Main.java engine/*.java entities/*.java game/*.java world/*.java ui/*.java && java Main
-```
-
----
+**Mécaniques :** Course, saut, dash (Shift), wall slide, wall jump, coyote time, jump buffer.
 
 ## Contrôles
 
-| Action       | Touches                               |
-|-------------|---------------------------------------|
-| Déplacement  | `A` / `D` ou `←` / `→`              |
-| Saut         | `Espace`, `W` ou `↑`                 |
-| Dash         | `Maj` (Shift)                         |
-| Menu / Recommencer | `Entrée`                        |
+| Touche | Action |
+|--------|--------|
+| `A` `D` / `←` `→` | Déplacement |
+| `Espace` `W` `↑` | Saut |
+| `Shift` | Dash |
+| `Entrée` | Menu / Recommencer |
 
----
+## Compilation et exécution
+
+```bash
+javac Main.java engine/*.java entities/*.java game/*.java world/*.java ui/*.java
+java Main
+```
+
+## Structure
+
+```
+├── Main.java              # Point d'entrée
+├── engine/                # GamePanel, GameLoop (60 FPS), InputHandler
+├── entities/              # Entity, Hero, Enemy, Portal, PlayerState
+├── game/                  # Game, Level, Camera, Particle
+├── world/                 # Platform, Trap, PowerUp
+├── ui/                    # Menu, HUD, GameOver
+├── levels/
+│   ├── level1.txt         # Tutoriel (sauts simples)
+│   ├── level2.txt         # Introduction pièges
+│   ├── level3.txt         # Ennemis + dash
+│   ├── level4.txt         # Wall jumps, précision
+│   └── level5.txt         # Challenge final
+└── docs/                  # Documentation détaillée par package
+```
+
+## Créer un niveau
+
+Les niveaux sont des fichiers texte (50 colonnes max, hauteur libre). Chaque caractère = une tuile de 32×32 pixels.
+
+| Caractère | Élément |
+|-----------|---------|
+| `#` | Plateforme |
+| `^` | Piège (tue au contact) |
+| `E` | Ennemi |
+| `X` | Portail de sortie |
+| `H` | Point de départ du joueur |
+| `.` | Vide |
+
+**Exemple minimal :**
+
+```
+..................................................
+.....................................X............
+...................................####...........
+..................................................
+H...###..........................................
+##################################################
+```
+
+**Règles :** Un seul `H` et un seul `X` par niveau. Toujours placer `H` au-dessus d'une plateforme. Le sol en bas évite les chutes infinies.
 
 ## Documentation
 
-La documentation complète du projet est disponible dans le dossier [`docs/`](docs/). Voici un aperçu de chaque fichier :
-
-| Fichier | Contenu |
-|---------|---------|
-| [`architecture.md`](docs/architecture.md) | Architecture globale, flux d'exécution, diagramme des packages |
-| [`engine.md`](docs/engine.md) | GamePanel, GameLoop (60 FPS), InputHandler |
-| [`entities.md`](docs/entities.md) | Entity, Hero, Enemy, Portal, PlayerState |
-| [`game.md`](docs/game.md) | Game, Level, Camera, Particle |
-| [`ui.md`](docs/ui.md) | Menu, HUD, GameOver |
-| [`world.md`](docs/world.md) | Platform, Trap, PowerUp |
-| [`levels.md`](docs/levels.md) | Format des fichiers .txt, caractères de mapping |
-| [`api-reference.md`](docs/api-reference.md) | Référence complète de toutes les classes et méthodes |
-
----
+Documentation détaillée dans [`docs/`](docs/) : architecture, moteur, entités, gameplay, interface, monde, niveaux et référence API complète.
 
 ## Licence
 
-Ce projet est open source sous licence MIT. Voir le fichier `LICENSE` pour plus de détails.
+MIT

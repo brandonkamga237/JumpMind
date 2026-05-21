@@ -54,6 +54,7 @@ public class Game {
         level.load(path);
         hero = new Hero(level.getHeroStartX(), level.getHeroStartY(), input);
         camera = new Camera();
+        camera.setBounds(level.getMapWidth(), level.getMapHeight());
         particles.clear();
         state = State.PLAYING;
         hud.setLevel(currentLevel);
@@ -111,7 +112,8 @@ public class Game {
                 }
             }
 
-            if (hero.getY() > GamePanel.HEIGHT + 200) {
+            // Mort par chute : en dessous de la map + marge
+            if (hero.getY() > level.getMapHeight() + 100) {
                 die();
                 return;
             }
