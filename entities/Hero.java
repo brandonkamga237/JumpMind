@@ -54,7 +54,7 @@ public class Hero extends Entity {
     // SHAPE SYSTEM (CIRCLE CORE)
     // ===============================
 
-    private float radius = 18f;
+    private float radius = 12f; // 🔥 REDUIT
 
     private float squashX = 1f;
     private float squashY = 1f;
@@ -96,7 +96,7 @@ public class Hero extends Entity {
     // ===============================
 
     public Hero(float x, float y, InputHandler input) {
-        super(x, y, 36, 36);
+        super(x, y, 24, 24);
         this.input = input;
     }
 
@@ -172,7 +172,6 @@ public class Hero extends Entity {
         }
 
         if (jump && (touchingLeftWall || touchingRightWall) && !onGround) {
-
             float dir = touchingLeftWall ? 1 : -1;
             vx = WALL_JUMP_FORCE_X * dir;
             vy = WALL_JUMP_FORCE_Y;
@@ -282,11 +281,8 @@ public class Hero extends Entity {
 
         for (Platform p : platforms) {
 
-            boolean xOverlap =
-                    right > p.getX() && left < p.getX() + p.getW();
-
-            boolean yClose =
-                    feetY >= p.getY() && feetY <= p.getY() + 3f;
+            boolean xOverlap = right > p.getX() && left < p.getX() + p.getW();
+            boolean yClose = feetY >= p.getY() && feetY <= p.getY() + 3f;
 
             if (xOverlap && yClose && vy >= 0) {
                 grounded = true;
@@ -300,7 +296,7 @@ public class Hero extends Entity {
     }
 
     // ===============================
-    // SHAPE SYSTEM (CIRCLE MORPH)
+    // SHAPE SYSTEM
     // ===============================
 
     private void updateShape() {
